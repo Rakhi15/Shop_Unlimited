@@ -2,6 +2,7 @@ package com.oakspro.shopunlimited;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
@@ -29,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(MainActivity.this, "Animation Completed", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(MainActivity.this, SigninActivity.class);
+                startActivity(intent);
+                finish();
             }
         },SCREEN_TIME);
     }
