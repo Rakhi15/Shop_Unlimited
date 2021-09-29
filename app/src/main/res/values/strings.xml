@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Shop Unlimited</string>
+    <string name="title_activity_shop">ShopActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_orders">Orders</string>
+    <string name="title_profile">Profile</string>
 </resources>

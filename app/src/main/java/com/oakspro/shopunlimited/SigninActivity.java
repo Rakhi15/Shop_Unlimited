@@ -82,6 +82,9 @@ public class SigninActivity extends AppCompatActivity {
                     String status=jsonObject.getString("status");
                     if (status.equals("Success")){
                         Toast.makeText(SigninActivity.this, "Welcome to Shop Unlimited", Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(SigninActivity.this, ShopActivity.class);
+                        startActivity(intent);
+                        finish();
                     }else if(status.equals("Failed")){
                         Toast.makeText(SigninActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                     }else if(status.equals("Invalid")){
