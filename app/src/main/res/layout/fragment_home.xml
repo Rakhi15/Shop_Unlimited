@@ -26,8 +26,19 @@
             android:gravity="center_vertical"
             android:textSize="14dp"
             android:textColor="@color/black"
+            android:singleLine="true"
             />
 
     </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:id="@+id/cat_recycler"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        tools:listitem="@layout/category_item"
+        />
+    
 
 </LinearLayout>
