@@ -60,3 +60,62 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
     }
 }
+
+
+/*
+
+
+<?php
+
+include 'connection.php';
+
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+
+	$pack=$_POST["package"];
+	$status="1";
+
+	$details['category']=array();
+	if($pack=="com.oakspro.shopunlimited"){
+
+
+		$sqlcmd="SELECT * FROM SU_category WHERE status='$status' ";
+		$res=mysqli_query($con, $sqlcmd);
+
+
+
+		while($row=mysqli_fetch_assoc($res)){
+
+			$index['cat_id']=$row['cat_id'];
+			$index['cat_name']=$row['cat_name'];
+			$index['cat_pic']=$row['cat_pic'];
+
+			array_push($details['category'], $index);
+
+		}
+
+		$details['status']="1";
+		echo json_encode($details);
+
+
+	}else{
+
+		$details['status']="0";
+		echo json_encode($details);
+	}
+
+
+
+}else{
+
+echo "NO PERMISSION";
+}
+
+
+
+?>
+
+
+
+
+
+ */
