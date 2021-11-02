@@ -16,13 +16,14 @@ public class SliderImgAdapter extends
         SliderViewAdapter<SliderImgAdapter.SliderAdapterVH> {
 
     private Context context;
-    private List<SliderItem> mSliderItems = new ArrayList<>();
+    private ArrayList<SliderItem> mSliderItems;
 
-    public SliderImgAdapter(Context context) {
+    public SliderImgAdapter(Context context, ArrayList<SliderItem> mSliderItems) {
         this.context = context;
+        this.mSliderItems=mSliderItems;
     }
 
-    public void renewItems(List<SliderItem> sliderItems) {
+    public void renewItems(ArrayList<SliderItem> sliderItems) {
         this.mSliderItems = sliderItems;
         notifyDataSetChanged();
     }

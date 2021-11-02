@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -32,6 +33,8 @@ public class SigninActivity extends AppCompatActivity {
     String api_signin="https://oakspro.com/projects/project35/deepu/shopUnlimited/signin_api.php";
     Button signinBtn;
     ProgressDialog progressDialog;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,9 @@ public class SigninActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+        preferences=getSharedPreferences("MyLogin", 0);
+        editor=preferences.edit();
 
         signinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +87,14 @@ public class SigninActivity extends AppCompatActivity {
                     JSONObject jsonObject=new JSONObject(response);
                     String status=jsonObject.getString("status");
                     if (status.equals("Success")){
+
+                        editor.putBoolean("isLogged", true);
+                        editor.putString("name", jsonObject.getString("name"));
+                        editor.putString("email", jsonObject.getString("email"));
+                        editor.putString("mobile", jsonObject.getString("mobile"));
+                        editor.putString("address", jsonObject.getString("address"));
+                        editor.commit();
+
                         Toast.makeText(SigninActivity.this, "Welcome to Shop Unlimited", Toast.LENGTH_SHORT).show();
                         Intent intent=new Intent(SigninActivity.this, ShopActivity.class);
                         startActivity(intent);

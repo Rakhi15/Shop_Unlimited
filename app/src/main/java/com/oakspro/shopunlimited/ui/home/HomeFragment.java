@@ -1,5 +1,6 @@
 package com.oakspro.shopunlimited.ui.home;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,12 @@ import com.android.volley.toolbox.Volley;
 import com.oakspro.shopunlimited.CategoryAdapter;
 import com.oakspro.shopunlimited.CategoryModel;
 import com.oakspro.shopunlimited.R;
+import com.oakspro.shopunlimited.SliderImgAdapter;
+import com.oakspro.shopunlimited.SliderItem;
 import com.oakspro.shopunlimited.databinding.FragmentHomeBinding;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +50,9 @@ public class HomeFragment extends Fragment {
     CategoryAdapter adapter;
     private String cat_api="https://oakspro.com/projects/project35/deepu/shopUnlimited/category_api.php";
 
+    ArrayList<SliderItem> adsArray=new ArrayList<>();
+    SliderView adSlider;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -52,10 +61,9 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         recyclerView=root.findViewById(R.id.cat_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        adSlider=root.findViewById(R.id.ads_slider);
+
         getCategoriesFromServer();
-
-
-
 
         return root;
     }
@@ -82,6 +90,34 @@ public class HomeFragment extends Fragment {
                         }
                         adapter=new CategoryAdapter(getContext(), arrayList);
                         recyclerView.setAdapter(adapter);
+
+
+                        //ads
+                        adsArray.clear();
+                        JSONArray jsonArray2=jsonObject.getJSONArray("ads");
+                        for (int i=0; i<jsonArray2.length(); i++){
+                            JSONObject object=jsonArray2.getJSONObject(i);
+
+                            SliderItem sliderItem=new SliderItem();
+                            sliderItem.setAd_id(object.getString("ad_id"));
+                            sliderItem.setAd_img(object.getString("ad_img"));
+                            sliderItem.setAd_link(object.getString("ad_link"));
+
+                            adsArray.add(sliderItem);
+                        }
+                        SliderImgAdapter adapter = new SliderImgAdapter(getContext(), adsArray);
+
+                        adSlider.setSliderAdapter(adapter);
+
+                        adSlider.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+                        adSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+                        adSlider.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+                        adSlider.setIndicatorSelectedColor(Color.WHITE);
+                        adSlider.setIndicatorUnselectedColor(Color.GRAY);
+                        adSlider.setScrollTimeInSec(4); //set scroll delay in seconds :
+                        adSlider.startAutoCycle();
+
+                        //end of ads
 
 
                     }else {
