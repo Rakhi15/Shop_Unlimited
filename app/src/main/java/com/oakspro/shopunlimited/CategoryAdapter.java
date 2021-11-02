@@ -1,6 +1,7 @@
 package com.oakspro.shopunlimited;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -40,6 +42,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.catName.setText(model.getCat_name());
 
         Picasso.get().load(img_address+model.getCat_pic()).into(holder.catImg);
+
+        holder.catCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String cat_id=model.getCat_id();
+                Intent intent=new Intent(context, ProductsActivity.class);
+                intent.putExtra("catID", cat_id);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -51,12 +63,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         ImageView catImg;
         TextView catName;
+        CardView catCard;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             catImg=itemView.findViewById(R.id.cat_img);
             catName=itemView.findViewById(R.id.cat_name);
+            catCard=itemView.findViewById(R.id.card_item);
         }
     }
 }

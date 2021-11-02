@@ -12,10 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopUnlimited">
         <activity
+            android:name=".ProductsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ShopActivity"
             android:exported="true"
             android:label="@string/title_activity_shop"
-            android:theme="@style/Theme.ShopUnlimited"/>
+            android:theme="@style/Theme.ShopUnlimited" />
         <activity
             android:name=".SigninActivity"
             android:exported="true" />
