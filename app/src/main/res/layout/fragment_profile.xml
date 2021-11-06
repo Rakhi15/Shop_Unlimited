@@ -25,8 +25,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:id="@+id/username_ed"
-        android:maxLines="1"
+        android:id="@+id/userN_ed"
+        android:textColor="@color/black"
         />
     <EditText
         android:layout_width="match_parent"
@@ -35,9 +35,10 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:id="@+id/mobile_ed"
+        android:id="@+id/userM_ed"
         android:inputType="phone"
-        android:maxLines="1"
+        android:maxLength="10"
+        android:textColor="@color/black"
         />
     <EditText
         android:layout_width="match_parent"
@@ -46,7 +47,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:id="@+id/email_ed"
+        android:id="@+id/userE_ed"
+        android:textColor="@color/black"
         />
     <EditText
         android:layout_width="match_parent"
@@ -55,8 +57,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:id="@+id/address_ed"
+        android:id="@+id/userA_ed"
         android:maxLines="6"
+        android:textColor="@color/black"
         />
 
     <Button
