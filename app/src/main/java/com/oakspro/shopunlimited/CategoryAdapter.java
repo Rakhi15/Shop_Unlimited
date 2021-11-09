@@ -52,6 +52,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 context.startActivity(intent);
             }
         });
+
     }
 
     @Override

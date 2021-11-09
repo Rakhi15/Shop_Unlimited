@@ -138,9 +138,11 @@ public class ProfileFragment extends Fragment {
                     String status=jsonObject.getString("status");
                     String message=jsonObject.getString("message");
                     progressDialog.dismiss();
-                    showMessage(status, message);
-
-
+                    if(status.equals("Success")){
+                        showMessage(status, message);
+                    }else{
+                        Toast.makeText(getContext(), "Profile Not Updated", Toast.LENGTH_SHORT).show();
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -161,7 +163,7 @@ public class ProfileFragment extends Fragment {
                 data.put("name", user_n);
                 data.put("email", email_n);
                 data.put("mobile", mobile_n);
-                data.put("password", address_n);
+                data.put("address", address_n);
                 data.put("userid", mobile_s);
                 return data;
             }
