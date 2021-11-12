@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -40,7 +42,7 @@ public class ProductsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
 
-        recyclerView=findViewById(R.id.cat_recycler);
+        recyclerView=findViewById(R.id.recyclerView_products);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         categoryID=getIntent().getStringExtra("catID");
@@ -78,7 +80,7 @@ public class ProductsActivity extends AppCompatActivity {
                         recyclerView.setAdapter(adapter);
 
                     }else {
-                        Toast.makeText(ProductsActivity.this, "Invalid Request", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductsActivity.this, "Products Not Available", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -102,5 +104,10 @@ public class ProductsActivity extends AppCompatActivity {
         };
         RequestQueue requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(request);
+    }
+
+    public void go_back(View view) {
+        Intent intent=new Intent(ProductsActivity.this, ShopActivity.class);
+        startActivity(intent);
     }
 }

@@ -20,7 +20,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     Context context;
     ArrayList<ProductData> arrayList;
-    private String img_address="https://oakspro.com/projects/project35/deepu/shopUnlimited/prod_pics/";
+    private String img_address="https://oakspro.com/projects/project35/deepu/shopUnlimited/products_pics/";
 
     public ProductAdapter(Context context, ArrayList<ProductData> arrayList){
         this.context=context;
