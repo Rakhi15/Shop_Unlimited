@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@drawable/edit_shape"
+    android:id="@+id/prod_item_ll"
     android:layout_margin="7dp">
 
     <ImageView

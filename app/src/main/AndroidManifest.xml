@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopUnlimited">
         <activity
+            android:name=".PDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProductsActivity"
             android:exported="false" />
         <activity
