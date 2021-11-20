@@ -93,6 +93,7 @@ public class SigninActivity extends AppCompatActivity {
                         editor.putString("email", jsonObject.getString("email"));
                         editor.putString("mobile", jsonObject.getString("mobile"));
                         editor.putString("address", jsonObject.getString("address"));
+                        editor.putString("userid", jsonObject.getString("userid"));
                         editor.commit();
 
                         Toast.makeText(SigninActivity.this, "Welcome to Shop Unlimited", Toast.LENGTH_SHORT).show();
