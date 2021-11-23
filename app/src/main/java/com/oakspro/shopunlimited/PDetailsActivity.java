@@ -38,7 +38,7 @@ public class PDetailsActivity extends AppCompatActivity {
     Button plusBtn, minusBtn;
     EditText qtyEd;
     SharedPreferences preferences;
-    String api_add_cart="";
+    String api_add_cart="https://oakspro.com/projects/project35/deepu/shopUnlimited/add_cart_api.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,9 +122,9 @@ public class PDetailsActivity extends AppCompatActivity {
                 try {
                     JSONObject object=new JSONObject(response);
                     String status=object.getString("status");
-                    if (status.equals("1")){
+                    if (status.equals("SUCCESS")){
                         Toast.makeText(PDetailsActivity.this, "Added", Toast.LENGTH_SHORT).show();
-                    }else if (status.equals("2")){
+                    }else if (status.equals("EXISTS")){
                         Toast.makeText(PDetailsActivity.this, "Already Added", Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(PDetailsActivity.this, "Failed", Toast.LENGTH_SHORT).show();
