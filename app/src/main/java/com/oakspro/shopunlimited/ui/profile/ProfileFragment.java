@@ -1,10 +1,14 @@
 package com.oakspro.shopunlimited.ui.profile;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +29,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.oakspro.shopunlimited.R;
 import com.oakspro.shopunlimited.SigninActivity;
 import com.oakspro.shopunlimited.SignupActivity;
@@ -34,8 +43,12 @@ import com.oakspro.shopunlimited.databinding.FragmentProfileBinding;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
 
@@ -49,6 +62,9 @@ public class ProfileFragment extends Fragment {
     private Boolean isEdit=false;
     private String api_link="https://oakspro.com/projects/project35/deepu/shopUnlimited/profile_update_api.php";
     private ProgressDialog progressDialog;
+    CircleImageView profileImg;
+    private static int report_pic_id=123;
+    String encoded_pic;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +88,7 @@ public class ProfileFragment extends Fragment {
         emailEd=root.findViewById(R.id.userE_ed);
         addressEd=root.findViewById(R.id.userA_ed);
         updateBtn=root.findViewById(R.id.btn22);
+        profileImg=root.findViewById(R.id.profile_image);
 
 
 
@@ -85,6 +102,31 @@ public class ProfileFragment extends Fragment {
         mobileEd.setEnabled(false);
         emailEd.setEnabled(false);
         addressEd.setEnabled(false);
+
+
+        profileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Dexter.withActivity(getActivity())
+                        .withPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .withListener(new MultiplePermissionsListener() {
+                            @Override
+                            public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+                                Intent intent_camera1=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(intent_camera1, report_pic_id);
+
+                            }
+
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+                                permissionToken.continuePermissionRequest();
+                            }
+                        }).check();
+
+            }
+        });
 
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +156,7 @@ public class ProfileFragment extends Fragment {
                     String mobile_n=mobileEd.getText().toString();
                     String address_n=addressEd.getText().toString();
 
-                    updateProfile(user_n, email_n, mobile_n, address_n, mobile_s);
+                    updateProfile(user_n, email_n, mobile_n, address_n, mobile_s, encoded_pic);
                 }
 
             }
@@ -123,7 +165,7 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
-    private void updateProfile(String user_n, String email_n, String mobile_n, String address_n, String mobile_s) {
+    private void updateProfile(String user_n, String email_n, String mobile_n, String address_n, String mobile_s, String encoded_pic) {
 
         progressDialog.show();
         //server logic of upload StringRequest
@@ -165,6 +207,7 @@ public class ProfileFragment extends Fragment {
                 data.put("mobile", mobile_n);
                 data.put("address", address_n);
                 data.put("userid", mobile_s);
+                data.put("profile", encoded_pic);
                 return data;
             }
         };
@@ -194,5 +237,29 @@ public class ProfileFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==report_pic_id){
+
+            Bitmap bitmap=(Bitmap) data.getExtras().get("data");
+            profileImg.setImageBitmap(bitmap);
+
+            imageProcess(bitmap);
+        }
+
+
+    }
+
+    private void imageProcess(Bitmap bitmap) {
+        ByteArrayOutputStream newstream=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100, newstream);
+
+        byte[] imageByte=newstream.toByteArray();
+
+        encoded_pic=android.util.Base64.encodeToString(imageByte, Base64.DEFAULT);
     }
 }
