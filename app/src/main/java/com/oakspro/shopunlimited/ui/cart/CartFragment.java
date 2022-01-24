@@ -21,6 +21,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.ebanx.swipebtn.OnActiveListener;
+import com.ebanx.swipebtn.SwipeButton;
 import com.oakspro.shopunlimited.CartAdapter;
 import com.oakspro.shopunlimited.CartData;
 import com.oakspro.shopunlimited.R;
@@ -44,6 +46,7 @@ public class CartFragment extends Fragment {
     private String cart_list_api="https://oakspro.com/projects/project35/deepu/shopUnlimited/cart_list_api.php";
     SharedPreferences preferences;
     String x;
+    SwipeButton swp_btn;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,12 +55,24 @@ public class CartFragment extends Fragment {
         binding = FragmentCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         recyclerView=root.findViewById(R.id.recyclerView_cart);
+        swp_btn=root.findViewById(R.id.swipe_btn);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         preferences = getActivity().getSharedPreferences("MyLogin", 0);
         x=preferences.getString("userid",null);
         getCartProductsFromServer();
+        swp_btn.setOnActiveListener(new OnActiveListener() {
+            @Override
+            public void onActive() {
+                orderConfirm();
+            }
+        });
 
         return root;
+    }
+
+    private void orderConfirm() {
+        //string request data: userid,totalamount,date-time
+        //in db create table for orders same like cart table
     }
 
     @Override

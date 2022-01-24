@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.cart.CartFragment"
-    android:orientation="vertical">
+    tools:context=".ui.cart.CartFragment">
 
     <LinearLayout
+        android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
@@ -26,36 +26,64 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/ll1"
         android:id="@+id/recyclerView_cart"
         android:layout_width="match_parent"
-        android:layout_height="590dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/total_amount"
         tools:listitem="@layout/cart_item" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/total_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="110dp"
+        android:text="Total product amount:"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold" />
         <TextView
-            android:id="@+id/total_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:text="Total product amount:"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-        <TextView
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="110dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10000.00"
             android:textColor="@color/black"
             android:textSize="20dp"
-
             android:layout_toRightOf="@+id/total_amount"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="70dp"
             />
+        <com.ebanx.swipebtn.SwipeButton
+            android:id="@+id/swipe_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            app:inner_text="Confirm Order"
+            app:inner_text_color="@android:color/white"
+            app:inner_text_size="16sp"
+            app:inner_text_top_padding="18dp"
+            app:inner_text_bottom_padding="18dp"
+            app:inner_text_background="@drawable/shape_rounded"
+            app:button_image_height="60dp"
+            app:button_image_width="100dp"
+            app:button_image_disabled="@drawable/ic_baseline_shopping_cart_24"
+            app:button_image_enabled="@drawable/ic_outline_shopping_cart_24"
+            app:button_left_padding="20dp"
+            app:button_right_padding="20dp"
+            app:button_top_padding="20dp"
+            app:button_bottom_padding="20dp"
+            app:button_background="@drawable/shape_button"
+            app:initial_state="disabled"
+            app:has_activate_state="true"
+            />
 
-    </RelativeLayout>
-</LinearLayout>
+
+</RelativeLayout>
